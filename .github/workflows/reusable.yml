@@ -1,6 +1,5 @@
 name: Reusable Workflow
-on:
-    workflow_call:
+on: push
 
 jobs:
     greeting:
@@ -8,4 +7,4 @@ jobs:
 
         steps:
             - name: Greeting Step
-              run: echo "Hi Welcome to Reusable Workflow"
+              run: echo "Hi Welcome Salam to Reusable Workflow"
