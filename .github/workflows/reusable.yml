@@ -1,10 +1,28 @@
 name: Reusable Workflow
-on: push
+on:
+    workflow_call:
+        inputs:
+            name:
+                description: Enter the name
+                required: true
+                type: string
+        secrets:
+            my_secret:
+                description: The secret to use in this workflow
+        outputs:
+            version:
+                value: ${{ jobs.greeting.outputs.version }}
 
 jobs:
     greeting:
         runs-on: ubuntu-latest
-
+        outputs:
+            version: ${{ steps.set-version.outputs.version }}
         steps:
             - name: Greeting Step
-              run: echo "Hi Welcome Salam to Reusable Workflow"
+              run: echo "Hi ${{ inputs.name }} Welcome to Reusable Workflow"
+            - name: This is my secret
+              run: echo "My secret is ${{ secrets.my_secret }}"
+            - name: Declare Output
+              id: set-version
+              run: echo "version=0.0.1" >> $GITHUB_OUTPUT
